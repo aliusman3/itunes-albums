@@ -11,6 +11,9 @@ const FavoritesContainer = styled.div`
 
 const FavoritesFilterInput = styled.input`
     margin: 10px 0;
+    border: 1px solid black;
+    padding: 10px 10px;
+    width: 30%;
 `;
 
 function FavoritesPage(props) {

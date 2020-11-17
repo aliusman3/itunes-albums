@@ -1,9 +1,20 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 import { selectAlbumsData, selectAlbumsError, selectAlbumsLoading } from '../ducks/albums';
-import { SearchContainer } from '../styled';
 import SearchBar from './SearchBar';
 import Album from './Album';
+
+const SearchContainer = styled.div`
+    margin-top: 10px;
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    grid-template-columns: var(--container-width) 1fr var(--container-width);
+    grid-template-areas:
+        ". searchbar ."
+        ". results .";
+    grid-column: -1/1;
+`;
 
 function SearchPage(props) {
     const albumsLoading = useSelector(selectAlbumsLoading);
