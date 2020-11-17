@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import MaterialIcon from '@material/react-material-icon';
+import { selectAlbumsLoading } from '../ducks/albums';
 import { fetchAlbumsByTerm } from '../ducks/albums';
 
 const SearchInput = styled.input`
@@ -10,10 +12,26 @@ const SearchInput = styled.input`
     width: 30%;
 `;
 
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const Loader = styled(MaterialIcon)`
+  margin-left: -30px;
+  animation: ${rotate} 2s linear infinite;
+`;
+
 function SearchBar(props) {
     const [term, setTerm] = useState('');
     const dispatch = useDispatch();
     const history = useHistory();
+    const albumsLoading = useSelector(selectAlbumsLoading);
     const onSubmit = useCallback((e, term) => {
         e.preventDefault();
         dispatch(fetchAlbumsByTerm({ term }));
@@ -21,8 +39,9 @@ function SearchBar(props) {
     }, [dispatch]);
     return (
         <div className="search-bar" style={{ gridArea: 'searchbar' }} >
-            <form onSubmit={e => onSubmit(e, term)}>
-                <SearchInput placeholder="Search for your favorite artists..." type="text" value={term} onChange={e => setTerm(e.target.value)}/>
+            <form style={{ display: 'flex', alignItems: 'center' }} onSubmit={e => onSubmit(e, term)}>
+                <SearchInput placeholder="Search for your favorite artists..." type="text" value={term} onChange={e => setTerm(e.target.value)} />
+                {albumsLoading && <Loader icon="cached" />}
             </form>
         </div>
     )
