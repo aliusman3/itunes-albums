@@ -12,7 +12,7 @@ function SearchPage(props) {
         <SearchContainer>
             <SearchBar />
             <div style={{gridArea:'results', width: '100%'}}>
-                {albumsData && albumsData.map(album => <Album key={album.collectionName} album={album} />)}
+                {albumsData && albumsData.map((album, index) => <Album key={index} album={album} />)}
             </div>
         </SearchContainer>
     )
