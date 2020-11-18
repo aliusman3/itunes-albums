@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import MaterialIcon from '@material/react-material-icon';
 import { useSelector, useDispatch } from 'react-redux';
 import { Anchor } from '../styled';
-import { addFavorite, removeFavorite, selectFavoritesCollectionNames } from '../ducks/favorites';
+import { addFavorite, removeFavorite, selectFavoritesCollectionIds } from '../ducks/favorites';
 
 const AlbumContainer = styled.div`
     display: flex;
@@ -63,14 +63,14 @@ const FavoritesIconContainer = styled.div`
 
 function Album({album}) {
     const dispatch = useDispatch();
-    const favoritedCollectionNames = useSelector(selectFavoritesCollectionNames);
-    const isFavorited = useMemo(() => favoritedCollectionNames.includes(album.collectionName), [favoritedCollectionNames, album.collectionName]);
+    const favoritedCollectionIds = useSelector(selectFavoritesCollectionIds);
+    const isFavorited = useMemo(() => favoritedCollectionIds.includes(album.collectionId), [favoritedCollectionIds, album.collectionId]);
     const onFavorite = useCallback(
         (e) => {
             e.preventDefault();
             e.stopPropagation();
             if (isFavorited) {
-                dispatch(removeFavorite(album.collectionName));
+                dispatch(removeFavorite(album.collectionId));
             } else {
                 dispatch(addFavorite(album));
             }

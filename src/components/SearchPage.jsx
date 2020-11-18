@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { selectAlbumsData, selectAlbumsError, selectAlbumsLoading } from '../ducks/albums';
+import { selectAlbumsData } from '../ducks/albums';
 import SearchBar from './SearchBar';
 import Album from './Album';
 
@@ -17,13 +17,12 @@ const SearchContainer = styled.div`
 `;
 
 function SearchPage(props) {
-    const albumsLoading = useSelector(selectAlbumsLoading);
     const albumsData = useSelector(selectAlbumsData);
     return (
         <SearchContainer>
             <SearchBar />
             <div style={{gridArea:'results', width: '100%'}}>
-                {albumsData && albumsData.map((album, index) => <Album key={index} album={album} />)}
+                {albumsData && albumsData.map((album, index) => <Album key={album.collectionId} album={album} />)}
             </div>
         </SearchContainer>
     )

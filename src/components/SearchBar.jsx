@@ -36,7 +36,7 @@ function SearchBar(props) {
         e.preventDefault();
         dispatch(fetchAlbumsByTerm({ term }));
         history.push('/search');
-    }, [dispatch]);
+    }, [dispatch, history]);
     return (
         <div className="search-bar" style={{ gridArea: 'searchbar' }} >
             <form style={{ display: 'flex', alignItems: 'center' }} onSubmit={e => onSubmit(e, term)}>

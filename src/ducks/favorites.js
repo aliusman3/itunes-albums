@@ -13,7 +13,7 @@ const favorites = createSlice({
             state.favorites.push(action.payload);
         },
         removeFavorite: (state, action) => {
-            state.favorites = state.favorites.filter(favorite => favorite.collectionName !== action.payload);
+            state.favorites = state.favorites.filter(favorite => favorite.collectionId !== action.payload);
         },
         setFavoriteFilterQuery: (state, action) => {
             state.favoritesFilterQuery = action.payload;
@@ -26,6 +26,10 @@ export const selectFavoritesFilterQuery = state => state.favorites.favoritesFilt
 export const selectFavoritesCollectionNames = createSelector(
     selectFavorites,
     favorites => favorites.map(favorite => favorite.collectionName)
+);
+export const selectFavoritesCollectionIds = createSelector(
+    selectFavorites,
+    favorites => favorites.map(favorite => favorite.collectionId)
 );
 export const selectFavoritesLength = createSelector(
     selectFavorites,
